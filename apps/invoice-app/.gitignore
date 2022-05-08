@@ -1,0 +1,5 @@
+dist-ssr
+*.local
+
+.showroom_cache
+showroom/

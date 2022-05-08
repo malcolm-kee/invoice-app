@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Address {
+  id             Int       @id @default(autoincrement())
+  street         String
+  city           String
+  postCode       String
+  country        String
+  clientInvoices Invoice[] @relation("ClientInvoices")
+  senderInvoices Invoice[] @relation("SenderInvoices")
+}
+
+model InvoiceItem {
+  id        Int     @id @default(autoincrement())
+  name      String
+  quantity  Int     @default(0)
+  price     Decimal @default(0)
+  total     Decimal @default(0)
+  invoiceId Int
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+enum InvoiceStatus {
+  DRAFT
+  PENDING
+  PAID
+}
+
+model Invoice {
+  id              Int           @id @default(autoincrement())
+  createdAt       DateTime      @default(now())
+  issueDate       DateTime?
+  paymentDue      DateTime?
+  description     String?
+  paymentTerms    Int?
+  clientName      String?
+  clientEmail     String?
+  status          InvoiceStatus @default(DRAFT)
+  senderAddressId Int?
+  senderAddress   Address?      @relation("SenderInvoices", fields: [senderAddressId], references: [id])
+  clientAddressId Int?
+  clientAddress   Address?      @relation("ClientInvoices", fields: [clientAddressId], references: [id])
+  invoiceItems    InvoiceItem[]
+  total           Decimal       @default(0)
+}

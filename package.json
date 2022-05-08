@@ -1,0 +1,18 @@
+{
+  "name": "invoice-app-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --stream --parallel run dev",
+    "dev:app": "pnpm -r --stream --parallel --filter=./apps/invoice-** run dev"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "concurrently": "^7.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.16",
+    "react-showroom": "^1.29.2",
+    "ts-jest": "^27.1.4",
+    "typescript": "^4.6.4"
+  }
+}

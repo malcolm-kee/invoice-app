@@ -1,0 +1,6 @@
+:root {
+  /* Outline border for focused elements */
+  --rdp-outline: 1px solid theme('colors.primary.300');
+  /* Outline border for focused and selected elements */
+  --rdp-outline-selected: 1px solid theme('colors.primary.500');
+}
